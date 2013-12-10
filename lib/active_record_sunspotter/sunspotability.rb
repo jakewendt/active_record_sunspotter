@@ -1,4 +1,4 @@
-module ActiveRecordSunspotable::Sunspotability
+module ActiveRecordSunspotter::Sunspotability
 def self.included(base)
 base.class_eval do
 #
@@ -8,7 +8,7 @@ base.class_eval do
 	self.all_sunspot_columns = []		#	order is only relevant to the facets
 
 	def self.add_sunspot_column(*args)
-		self.all_sunspot_columns.push( ActiveRecordSunspotable::SunspotColumn.new( *args ) )
+		self.all_sunspot_columns.push( ActiveRecordSunspotter::SunspotColumn.new( *args ) )
 	end
 
 	def self.sunspot_orderable_columns

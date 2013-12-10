@@ -1,4 +1,4 @@
-= active_record_sunspotable
+= active_record_sunspotter
 
 
 

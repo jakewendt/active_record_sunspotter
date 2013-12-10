@@ -1,4 +1,4 @@
-module ActiveRecordSunspotable::SunspotHelper
+module ActiveRecordSunspotter::SunspotHelper
 
 	#	Rails helpers are already "html_safe".
 	#	Manually creating the strings will require adding it.
@@ -160,7 +160,7 @@ end
 
 
 
-ActionView::Base.send(:include, ActiveRecordSunspotable::SunspotHelper)
+ActionView::Base.send(:include, ActiveRecordSunspotter::SunspotHelper)
 
 
 

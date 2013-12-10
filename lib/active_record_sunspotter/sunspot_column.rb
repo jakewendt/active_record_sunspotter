@@ -1,5 +1,5 @@
 require 'ostruct'
-class ActiveRecordSunspotable::SunspotColumn < OpenStruct
+class ActiveRecordSunspotter::SunspotColumn < OpenStruct
 
 	def initialize(*args)
 		#	some sensible defaults

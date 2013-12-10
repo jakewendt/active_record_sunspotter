@@ -1,5 +1,5 @@
 #class SunspotController < ApplicationController
-module ActiveRecordSunspotable::SearchSunspotFor
+module ActiveRecordSunspotter::SearchSunspotFor
 
 #	before_filter :may_read_required
 

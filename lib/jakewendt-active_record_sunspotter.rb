@@ -1,1 +1,1 @@
-require 'active_record_sunspotable'
+require 'active_record_sunspotter'
