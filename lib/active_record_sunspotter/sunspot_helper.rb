@@ -157,10 +157,3 @@ module ActiveRecordSunspotter::SunspotHelper
 	end
 
 end
-
-
-
-ActionView::Base.send(:include, ActiveRecordSunspotter::SunspotHelper)
-
-
-
