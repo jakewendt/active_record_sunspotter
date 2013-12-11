@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "jakewendt-active_record_sunspotter"
-  s.version = "0.0.0"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["George 'Jake' Wendt"]
-  s.date = "2013-12-10"
+  s.date = "2013-12-11"
   s.description = "active_record_sunspotter"
   s.email = "github@jakewendt.com"
   s.extra_rdoc_files = [
@@ -27,6 +27,9 @@ Gem::Specification.new do |s|
     "lib/jakewendt-active_record_sunspotter.rb",
     "vendor/assets/javascripts/sunspot.js",
     "vendor/assets/stylesheets/sunspot.css",
+    "vendor/views/layouts/_footer.html.erb",
+    "vendor/views/layouts/_sunspot_head.html.erb",
+    "vendor/views/layouts/_sunspot_header.html.erb",
     "vendor/views/layouts/sunspot.html.erb",
     "vendor/views/sunspot/_download_csv.html.erb",
     "vendor/views/sunspot/_facets.html.erb",
