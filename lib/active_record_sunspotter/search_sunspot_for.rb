@@ -1,9 +1,4 @@
-#class SunspotController < ApplicationController
 module ActiveRecordSunspotter::SearchSunspotFor
-
-#	before_filter :may_read_required
-
-#protected	#	from what and why?
 
 	def search_sunspot_for( search_class )
 		@sunspot_search_class = search_class
