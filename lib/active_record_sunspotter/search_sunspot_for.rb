@@ -90,7 +90,7 @@ module ActiveRecordSunspotter::SearchSunspotFor
 					#	use the @search.total from the previous search sent as param?
 					paginate :page => 1, :per_page => 1000000
 				else
-					paginate :page => params[:page], :per_page => params[:per_page]||50
+					paginate :page => params[:page], :per_page => params[:per_page]||=50
 				end
 			end	#	@search = @sunspot_search_class.search do
 
