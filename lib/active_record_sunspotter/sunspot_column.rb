@@ -35,3 +35,15 @@ class ActiveRecordSunspotter::SunspotColumn < OpenStruct
 	end
 
 end
+
+
+__END__
+
+
+Add :index option.  Default to true.
+False would effectively mean that it is only useful as a column.
+This may be the same as facetable.
+WAIT!  If aren't indexed, then can't be sorted on.
+
+So could skip adding if weren't facetable, orderable or multiple.
+

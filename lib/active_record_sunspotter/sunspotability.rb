@@ -63,6 +63,9 @@ module ActiveRecordSunspotter::Sunspotability
 				#	Trying to simplify.  Simplify?  Minimize?
 				#	Will I need all of the above methods after this is done?
 				#
+#	.select{|c| c.facetable }
+#	or just use "sunspot_all_facets" instead of "all_sunspot_columns"
+#	WAIT!  If aren't indexed, then can't be sorted on.
 				all_sunspot_columns.select{|c| ![:boolean,:nulled_string].include?(c.type) }.each{|c|
 					options = {}
 					options[:multiple] = true if( c.multiple )
@@ -88,3 +91,9 @@ module ActiveRecordSunspotter::Sunspotability
 	end	#	module ClassMethods
 
 end
+__END__
+
+What's the point of adding a column to the index that isn't faceted?
+It would basically just be useful as a column, which is why I was
+considering creating an "index" option.
+WAIT!  If aren't indexed, then can't be sorted on.
