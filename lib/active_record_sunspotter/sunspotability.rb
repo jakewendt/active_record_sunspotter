@@ -69,7 +69,13 @@ module ActiveRecordSunspotter::Sunspotability
 				all_sunspot_columns.select{|c| ![:boolean,:nulled_string].include?(c.type) }.each{|c|
 					options = {}
 					options[:multiple] = true if( c.multiple )
-					options[:trie] = true if( [:integer,:long,:double,:float,:time].include?(c.type) )
+#
+#	I don't think that trie works with :long or :double
+#	I got this when I tried a :double
+#	Trie fields are only valid for numeric and time types
+#
+#					options[:trie] = true if( [:integer,:long,:double,:float,:time].include?(c.type) )
+					options[:trie] = true if( [:integer,:float,:time].include?(c.type) )
 					send( c.type, c.name, options ){
 						c.hash_table.has_key?(:meth) ? c.meth.call(self) : send( c.name )
 					}
