@@ -74,6 +74,24 @@ module ActiveRecordSunspotter::Sunspotability
 #	I got this when I tried a :double
 #	Trie fields are only valid for numeric and time types
 #
+#	I found documentation that says that Lucene/Solr should work for longs and doubles?
+#
+#
+#	these are missing in sunspot 2.0
+#
+#	module Sunspot::Type
+#		class TrieDoubleType < DoubleType
+#			def indexed_name(name)
+#				"#{super}t"
+#			end
+#		end
+#		class TrieLongType < LongType
+#			def indexed_name(name)
+#				"#{super}t"
+#			end
+#		end
+#	end
+#
 #					options[:trie] = true if( [:integer,:long,:double,:float,:time].include?(c.type) )
 					options[:trie] = true if( [:integer,:float,:time].include?(c.type) )
 					send( c.type, c.name, options ){
