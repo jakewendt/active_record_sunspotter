@@ -17,6 +17,7 @@ begin
 		gem.files += FileList['vendor/**/*.erb']
 		gem.files += FileList['vendor/**/*.js']
 		gem.files += FileList['vendor/**/*.css']
+		gem.files += FileList['vendor/**/*.css.scss']
 		gem.files -= FileList['**/versions/*']
 	end
 	Jeweler::GemcutterTasks.new
