@@ -7,6 +7,7 @@ source 'https://rubygems.org'
 
 #	2.1.0 doesn't seem to actually start
 #gem 'sunspot', '= 2.0.0'
+#	20140117 - Stick with java 1.6.  java 1.7 causes grief.
 gem 'sunspot_rails', '= 2.0.0'
 gem 'sunspot_solr', '= 2.0.0' # optional pre-packaged Solr distribution for use in development
 gem 'progress_bar'

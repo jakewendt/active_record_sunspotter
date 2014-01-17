@@ -5,7 +5,7 @@ GEM
     fattr (2.2.1)
     highline (1.6.20)
     mini_portile (0.5.2)
-    nokogiri (1.6.0)
+    nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     options (2.3.0)
       fattr
