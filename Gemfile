@@ -14,7 +14,10 @@ source 'https://rubygems.org'
 #	I don't even know what file it is refering to
 #	Fortunately, this seems to only be a testing error as our production site
 #	is using 1.7 apparently without issue.
-# And dev with 1.7 ok too, I think
+# And dev with 1.7 ok too, I think.  Just "test"
+#
+#	Manipulated current version with links in ....
+#	/System/Library/Frameworks/JavaVM.framework/Versions
 #
 #	Upgrading the sunspot family to 2.1.0 will cause ...
 #> bundle exec rake sunspot:solr:run
