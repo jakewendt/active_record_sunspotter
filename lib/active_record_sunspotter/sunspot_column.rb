@@ -7,6 +7,7 @@ class ActiveRecordSunspotter::SunspotColumn < OpenStruct
 			:type      => :string, 
 			:orderable => true, 
 			:facetable => false, 
+			:filterable => false, 
 			:multiple  => false, 
 			:default   => false
 		}
@@ -23,6 +24,7 @@ class ActiveRecordSunspotter::SunspotColumn < OpenStruct
 		default_options.update(options)
 #		default_options[:orderable] = false if options[:type] == :multistring
 		default_options[:orderable] = false if options[:multiple]
+		default_options[:filterable] = true if options[:facetable]
 		super default_options
 	end
 

@@ -33,6 +33,10 @@ module ActiveRecordSunspotter::Sunspotability
 			sunspot_default_columns.collect(&:name)
 		end
 	
+		def sunspot_all_filters
+			all_sunspot_columns.select{|c|c.filterable}
+		end
+
 		#	in the order that they will appear on the page
 		def sunspot_all_facets
 			all_sunspot_columns.select{|c|c.facetable}
@@ -77,7 +81,7 @@ module ActiveRecordSunspotter::Sunspotability
 #	I found documentation that says that Lucene/Solr should work for longs and doubles?
 #
 #
-#	these are missing in sunspot 2.0
+#	these are missing in sunspot 2.0.  I added them in my taxonomy app
 #
 #	module Sunspot::Type
 #		class TrieDoubleType < DoubleType

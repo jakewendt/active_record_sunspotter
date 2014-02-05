@@ -1,4 +1,21 @@
 <div class='facets'>
+<%  @sunspot_search_class.sunspot_all_filters.each do |f| %>
+	<% unless f.facetable %>
+		<% if params["#{f.name}_op"].present? %>
+			<%= hidden_field_tag "#{f.name}_op", params["#{f.name}_op"], :id => nil %>
+		<% end %>
+		<% if params[f.name].present? %>
+			<% if params[f.name].is_a?(Array) %>
+				<% params[f.name].each do |value| %>
+					<%= hidden_field_tag "#{f.name}[]", value, :id => nil %>
+				<% end %>
+			<% else %>
+
+			<% end %>
+		<% end %><%# if params[f.name].present? %>
+	<% end %><%# unless f.facetable %>
+<% end %><%#  @sunspot_search_class.sunspot_all_filters.each do |f| %>
+
 	<% @search.facets.each do |facet| -%>
 		<% next if facet.rows.empty? -%><%# don't show empty facets -%>
 		<%= facet_for(facet,

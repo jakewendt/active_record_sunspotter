@@ -8,11 +8,6 @@ module ActiveRecordSunspotter::SearchSunspotFor
 		@sunspot_search_class.methods.include?(:search) ||
 			access_denied("Sunspot server probably wasn't started first!", root_path)
 
-		#	This includes a redirect so can't render in action.
-		#	Including better condition.  Nevermind.
-#		unless @sunspot_search_class.methods.include?(:search)
-#			access_denied("Sunspot server probably wasn't started first!", root_path)
-#		else
 		begin
 			@search = @sunspot_search_class.search do
 
@@ -20,25 +15,16 @@ module ActiveRecordSunspotter::SearchSunspotFor
 					fulltext params[:q]
 				end
 
-#				self.instance_variable_get('@setup').clazz.sunspot_all_facet_names.each do |p|
-				self.instance_variable_get('@setup').clazz.sunspot_all_facets.each do |f|	#	don't use |facet|
+				self.instance_variable_get('@setup').clazz.sunspot_all_filters.each do |f|	#	don't use |facet|
+
 					p=f.name
 
 					if f.range
 
-#	undefined method `range_facet_and_filter_for' for #<Sunspot::DSL::Search:0x007fdd3b375850>
-#	this adds a duplicate facet to the list of facets that end up being shown
-#	need to filter it out somehow.  Got it.
 						range_facet_and_filter_for(p,params.dup,f.range)
 
-
-	#				if child_age_facets.include?(p)
-	#					range_facet_and_filter_for(p,params.dup,:start => 1, :step => 2)
-	#				elsif parent_age_facets.include?(p)
-	#					range_facet_and_filter_for(p,params.dup)
-	#				elsif year_facets.include?(p)
-	#					range_facet_and_filter_for(p,params.dup,{:start => 1980, :stop => 2010, :step => 5})
 					else
+
 						if params[p]
 							#
 							#	20130423 - be advised that false.blank? is true so the boolean attributes
@@ -47,14 +33,25 @@ module ActiveRecordSunspotter::SearchSunspotFor
 							#
 							params[p] = [params[p].dup].flatten.reject{|x|x.blank?}
 
-
-							if params[p+'_op'] && params[p+'_op']=='AND'
+							if params[p+'_op'] && params[p+'_op'].match(/AND/i).present?
 								unless params[p].blank?	#	empty?	#	blank? works for arrays too
 									with(p).all_of params[p]
 								else
 									params.delete(p)	#	remove the key so doesn't show in view
 								end
-							else
+
+							#
+							#	NOTE This is an INTEGER SORT for the BETWEEN filter!
+							#
+							elsif params[p+'_op'] && params[p+'_op'].match(/BETWEEN/i).present?
+								unless params[p].blank?	#empty?	# blank? works for arrays too
+									#	between is expecting an array with a first and last (can be array of 1 really)
+									with(p).between [params[p].sort_by(&:to_i)].flatten
+								else
+									params.delete(p)	#	remove the key so doesn't show in view
+								end
+
+							else	#	using 'OR'
 								unless params[p].blank?	#empty?	# blank? works for arrays too
 									with(p).any_of params[p]
 								else
@@ -62,24 +59,23 @@ module ActiveRecordSunspotter::SearchSunspotFor
 								end
 							end	#	if params[p+'_op'] && params[p+'_op']=='AND'
 
-
 						end	#	if params[p]
 
+						#	facet.sort
+						#	This param determines the ordering of the facet field constraints.
+						#	    count - sort the constraints by count (highest count first)
+						#	    index - to return the constraints sorted in their index order 
+						#			(lexicographic by indexed term). For terms in the ascii range, 
+						#				this will be alphabetically sorted. 
+						#	The default is count if facet.limit is greater than 0, index otherwise.
+						#	Prior to Solr1.4, one needed to use true instead of count and false instead of index.
+						#	This parameter can be specified on a per field basis. 
+						#
 						#	put this inside the else condition as the if block is
 						#	for ranges and it calls facet
-						facet p.to_sym, :sort => :index
+						facet p.to_sym, :sort => :index if f.facetable
 
 					end	#	if child_age_facets.include?(p)
-					#	facet.sort
-					#	This param determines the ordering of the facet field constraints.
-					#	    count - sort the constraints by count (highest count first)
-					#	    index - to return the constraints sorted in their index order 
-					#			(lexicographic by indexed term). For terms in the ascii range, 
-					#				this will be alphabetically sorted. 
-					#	The default is count if facet.limit is greater than 0, index otherwise.
-					#	Prior to Solr1.4, one needed to use true instead of count and false instead of index.
-					#	This parameter can be specified on a per field basis. 
-#					facet p.to_sym, :sort => :index
 				end	#	@sunspot_search_class.sunspot_all_facets.each do |p|
 	
 				order_by *search_order
@@ -98,7 +94,7 @@ module ActiveRecordSunspotter::SearchSunspotFor
 			flash[:error] = "Solr seems to be down for the moment."
 			redirect_to root_path
 		end	#	begin
-#		end	#	unless @sunspot_search_class.methods.include?(:search)
+
 	end
 
 	def search_order
@@ -179,21 +175,3 @@ module ActiveRecordSunspotter::SearchSunspotFor
 	end	#	Sunspot::DSL::Search.class_eval do
 
 end
-
-
-
-
-
-
-#Sunspot::DSL::Search.class_eval do
-#	#
-#	#	Add options to control
-#	#		under = nil   (-infinity)   boolean to flag under start???
-#	#		over  = nil   (infinity)    boolean to flag over stop???
-#	#		start = 20
-#	#		step  = 10
-#	#		end   = 50
-#	#
-##
-##	TODO change "Under 20" to "20 and under"
-##	TODO change "Over 50"  to "50 and over"
