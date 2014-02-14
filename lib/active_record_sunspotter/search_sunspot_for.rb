@@ -113,6 +113,26 @@ module ActiveRecordSunspotter::SearchSunspotFor
 
 	::Sunspot::DSL::Search.class_eval do
 
+
+		def fixed_range_facet_and_filter_for()
+		end
+
+#
+#	what's the difference between 
+#		with( field, Range.new(range,range+step) )
+#	and
+#		with( field ).between( [range,range+step] )
+#	I don't think that there is any
+#	Note that 
+#		with( field, [range,range+step] )
+#	IS NOT THE SAME.  That would be an ANY check.
+#	And using Range.new probably only works with integers.
+#	Not floats, doubles, text, dates, etc.
+#	Actually the example uses 3.0..5.0 but I'm not sure
+#	how ruby would interpret that. Base on the number of given decimal places?
+#	Exponential notation probably would not work.
+#
+
 		def range_facet_and_filter_for(field,params={},options={})
 			start = (options[:start] || 20)	#.to_i
 			stop  = (options[:stop]  || 50)	#.to_i
@@ -130,7 +150,7 @@ module ActiveRecordSunspotter::SearchSunspotFor
 							with( field.to_sym ).greater_than $1  #	actually greater than or equal to
 #						elsif pp =~ /^\d+\.\.\d+$/
 						elsif pp =~ /^.+\.\..+$/
-							with( field.to_sym, eval(pp) )
+							with( field.to_sym, eval(pp) )	#	NOTE could add parantheses then use Range.new( $1,$2 )???
 						elsif pp =~ /^\d+$/
 							with( field.to_sym, pp )	#	primarily for testing?  No range, just value
 						end
