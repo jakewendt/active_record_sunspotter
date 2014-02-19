@@ -23,6 +23,10 @@ module ActiveRecordSunspotter::SearchSunspotFor
 
 						range_facet_and_filter_for(p,params.dup,f.range)
 
+					elsif f.ranges	#	YES, PLURAL for an array of fixed ranges
+
+						fixed_range_facet_and_filter_for(p,params.dup,f.ranges)
+
 					else
 
 						if params[p]
@@ -113,8 +117,38 @@ module ActiveRecordSunspotter::SearchSunspotFor
 
 	::Sunspot::DSL::Search.class_eval do
 
+		def range_filter_for(field,params={})
+			if params[field]
+#	"expect"=>["1e-5..1e0"]
+				any_of do
+					params[field].each do |pp|
+#						if pp =~ /^Under (\d+)$/
+						if pp =~ /^Under (.+)$/
+							with( field.to_sym ).less_than $1     #	actually less than or equal to
+#						elsif pp =~ /^Over (\d+)$/
+						elsif pp =~ /^Over (.+)$/
+							with( field.to_sym ).greater_than $1  #	actually greater than or equal to
+#						elsif pp =~ /^\d+\.\.\d+$/
+						elsif pp =~ /^.+\.\..+$/
+							with( field.to_sym, eval(pp) )	#	NOTE could add parantheses then use Range.new( $1,$2 )???
+						elsif pp =~ /^\d+$/
+							with( field.to_sym, pp )	#	primarily for testing?  No range, just value
+						end
+					end
+				end
+			end
+		end
 
-		def fixed_range_facet_and_filter_for()
+		def fixed_range_facet_and_filter_for(field,params={},options={})
+			range_filter_for(field,params)
+			facet field.to_sym do
+				options.each do |h|
+#					row "#{h[:name]}" do
+					row "#{h[:between].sort.first}..#{h[:between].sort.last}" do
+						with( field.to_sym, Range.new(h[:between].sort.first,h[:between].sort.last) )
+					end
+				end	#	options.each do |h|
+			end	#	facet field.to_sym do
 		end
 
 #
@@ -138,25 +172,26 @@ module ActiveRecordSunspotter::SearchSunspotFor
 			stop  = (options[:stop]  || 50)	#.to_i
 			step  = (options[:step]  || 10)	#.to_i
 			log   = (options[:log]   || false)	#.to_i
-			if params[field]
-#	"expect"=>["1e-5..1e0"]
-				any_of do
-					params[field].each do |pp|
-#						if pp =~ /^Under (\d+)$/
-						if pp =~ /^Under (.+)$/
-							with( field.to_sym ).less_than $1     #	actually less than or equal to
-#						elsif pp =~ /^Over (\d+)$/
-						elsif pp =~ /^Over (.+)$/
-							with( field.to_sym ).greater_than $1  #	actually greater than or equal to
-#						elsif pp =~ /^\d+\.\.\d+$/
-						elsif pp =~ /^.+\.\..+$/
-							with( field.to_sym, eval(pp) )	#	NOTE could add parantheses then use Range.new( $1,$2 )???
-						elsif pp =~ /^\d+$/
-							with( field.to_sym, pp )	#	primarily for testing?  No range, just value
-						end
-					end
-				end
-			end
+			range_filter_for(field,params)
+#			if params[field]
+##	"expect"=>["1e-5..1e0"]
+#				any_of do
+#					params[field].each do |pp|
+##						if pp =~ /^Under (\d+)$/
+#						if pp =~ /^Under (.+)$/
+#							with( field.to_sym ).less_than $1     #	actually less than or equal to
+##						elsif pp =~ /^Over (\d+)$/
+#						elsif pp =~ /^Over (.+)$/
+#							with( field.to_sym ).greater_than $1  #	actually greater than or equal to
+##						elsif pp =~ /^\d+\.\.\d+$/
+#						elsif pp =~ /^.+\.\..+$/
+#							with( field.to_sym, eval(pp) )	#	NOTE could add parantheses then use Range.new( $1,$2 )???
+#						elsif pp =~ /^\d+$/
+#							with( field.to_sym, pp )	#	primarily for testing?  No range, just value
+#						end
+#					end
+#				end
+#			end
 			facet field.to_sym do
 				if log
 					row "Under 1e#{start}" do
