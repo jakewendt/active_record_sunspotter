@@ -79,8 +79,9 @@ module ActiveRecordSunspotter::SearchSunspotFor
 						#	for ranges and it calls facet
 						facet p.to_sym, :sort => :index if f.facetable
 
-					end	#	if child_age_facets.include?(p)
-				end	#	@sunspot_search_class.sunspot_all_facets.each do |p|
+					end
+
+				end	#	@sunspot_search_class.sunspot_all_filters.each do |p|
 	
 				order_by *search_order
 	
