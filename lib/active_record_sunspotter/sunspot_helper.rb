@@ -65,26 +65,39 @@ module ActiveRecordSunspotter::SunspotHelper
 		s << "\n<div id='#{facet.name}' class='facet_field'#{style}>\n".html_safe
 		s << multi_select_operator_for(facet.name) if options[:multiselector]
 
+
+
+		col = @sunspot_search_class.sunspot_columns.detect{|c|
+			c.name == facet.name.to_s }
+
+
+
 		s << "<ul class='facet_field_values'>\n".html_safe
 		facet.rows.each do |row|
 
-#
-#	NOTE for now, if a blank field has made it into the index, IGNORE IT.
-#		Unfortunately, searching for a '' creates syntactically incorrect query.
-#
-#		Of course, this mucks up the count.  Errr!!!
-#		So I had to handle it yet again.
-#
+			#
+			#	NOTE for now, if a blank field has made it into the index, IGNORE IT.
+			#		Unfortunately, searching for a '' creates syntactically incorrect query.
+			#
+			#		Of course, this mucks up the count.  Errr!!!
+			#		So I had to handle it yet again.
+			#
 
-#
-#	20130423 - false.blank? is true so boolean fields won't work here
-#
+			#
+			#	20130423 - false.blank? is true so boolean fields won't work here
+			#
 			next if row.value.blank?
 
+			label = if col.ranges
+				col.ranges.detect{|r|
+					r[:range].to_s == row.value.to_s }[:name] || 'nope'
+			else
+				row.value
+			end
 
-#	TODO figure out how to facet on NULL and BLANK values
-#		I don't think that NULL gets faceted
-
+			#	TODO figure out how to facet on NULL and BLANK values
+			#		I don't think that NULL gets faceted
+			#		and blank creates a syntactically incorrect query
 
 			s << "<li>".html_safe
 			if options[:radio]
@@ -97,7 +110,8 @@ module ActiveRecordSunspotter::SunspotHelper
 						{ :id => "#{facet.name}_#{row.value.html_friendly}" } )
 			end
 			s << "<label for='#{facet.name}_#{row.value.html_friendly}'>".html_safe
-			s << "<span>#{row.value}</span>".html_safe
+#			s << "<span>#{row.value}</span>".html_safe
+			s << "<span>#{label}</span>".html_safe
 			s << "&nbsp;(&nbsp;#{row.count}&nbsp;)".html_safe if options[:facet_counts]
 			s << "</label></li>\n".html_safe
 		end

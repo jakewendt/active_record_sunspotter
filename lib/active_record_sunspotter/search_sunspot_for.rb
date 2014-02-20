@@ -144,8 +144,10 @@ module ActiveRecordSunspotter::SearchSunspotFor
 			facet field.to_sym do
 				options.each do |h|
 #					row "#{h[:name]}" do
-					row "#{h[:between].sort.first}..#{h[:between].sort.last}" do
-						with( field.to_sym, Range.new(h[:between].sort.first,h[:between].sort.last) )
+#					row "#{h[:between].sort.first}..#{h[:between].sort.last}" do
+#						with( field.to_sym, Range.new(h[:between].sort.first,h[:between].sort.last) )
+					row "#{h[:range]}" do
+						with( field.to_sym, h[:range] )
 					end
 				end	#	options.each do |h|
 			end	#	facet field.to_sym do
