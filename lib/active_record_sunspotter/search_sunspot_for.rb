@@ -8,6 +8,18 @@ module ActiveRecordSunspotter::SearchSunspotFor
 		@sunspot_search_class.methods.include?(:solr_search) ||
 			access_denied("Sunspot server probably wasn't started first!", root_path)
 
+#
+#	Something has changed that causes this now when :search is stubbed.
+#	Unstubbing makes testing raise and error and basically stop.
+#
+#/opt/local/lib/ruby2.0/gems/2.0.0/gems/mocha-0.13.3/lib/mocha/class_method.rb:80:in `public': undefined method `search' for class `Class' (NameError)
+#
+#	changing this to use solr_search rather than search seems to make it ok.
+#	search is actually an alias to solr_search which may be the cause.
+#	new ruby, new rules?  Perhaps a newer mocha would work, but I've had
+#	a number of problems with newer versions.
+#
+
 		begin
 			@search = @sunspot_search_class.solr_search do
 
