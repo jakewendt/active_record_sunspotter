@@ -10,8 +10,7 @@
 				<tr class='row'>
 					<td><%= render 'link', :result => result %></td>
 					<% columns.each do |column| %>
-						<td><%= column_content(result,column).to_s.gsub(/\s+/,'&nbsp;').html_safe || 
-							'&nbsp;'.html_safe %></td>
+						<td><%#= column_content(result,column).to_s.gsub(/\s+/,'&nbsp;').html_safe || '&nbsp;'.html_safe -%><%= html_column_content(result,column) %></td>
 					<% end %>
 				</tr>
 			<% end %>

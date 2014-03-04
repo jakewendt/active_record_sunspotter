@@ -170,4 +170,18 @@ module ActiveRecordSunspotter::SunspotHelper
 		end
 	end
 
+
+
+
+	def html_column_content(result,column)
+		content = column_content(result,column).to_s.gsub(/\s+/,'&nbsp;') || '&nbsp;'
+
+		col = @sunspot_search_class.sunspot_columns.detect{|c|
+			c.name == column.to_s }
+		html_content = ( col.hash_table.has_key?(:link_to) ) ?
+			link_to( content, col.link_to.call(result), :target => :new ) : content
+
+		html_content.html_safe
+	end
+
 end
