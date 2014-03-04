@@ -5,11 +5,11 @@ module ActiveRecordSunspotter::SearchSunspotFor
 
 		#	Formerly a before_filter, but after being genericized,
 		#	we don't know the search class until the search begins.
-		@sunspot_search_class.methods.include?(:search) ||
+		@sunspot_search_class.methods.include?(:solr_search) ||
 			access_denied("Sunspot server probably wasn't started first!", root_path)
 
 		begin
-			@search = @sunspot_search_class.search do
+			@search = @sunspot_search_class.solr_search do
 
 				if params[:q].present?
 					fulltext params[:q]
@@ -93,7 +93,7 @@ module ActiveRecordSunspotter::SearchSunspotFor
 				else
 					paginate :page => params[:page], :per_page => params[:per_page]||=50
 				end
-			end	#	@search = @sunspot_search_class.search do
+			end	#	@search = @sunspot_search_class.solr_search do
 
 		rescue Errno::ECONNREFUSED
 			flash[:error] = "Solr seems to be down for the moment."
