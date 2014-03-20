@@ -1,2 +1,44 @@
-versions/
 pkg/
+
+
+# Ignore all logfiles and tempfiles.
+/log
+/tmp
+
+/OLD_UNUSED_FILES
+
+
+#.gitignore
+.DS_Store
+
+#	old subversion directories, probably irrelevant here
+.svn/
+
+#	Jake's versions directories
+versions/
+#/misc/
+
+#	where I store all my database dumps
+/dumps/
+
+#	old copies of my Gemfile.lock file
+/Gemfile.lock.*
+
+#	Files potentitally with passwords and such
+config/api.yml
+/config/database.yml
+/config/secrets.yml
+#config/*database.yml
+#/config/fed_ex.yml
+/config/initializers/mail.rb
+#/config/initializers/session_store.rb
+/config/initializers/secret_token.rb
+#/config/s3.yml
+
+#	code coverate data
+/coverage.data
+/coverage*/
+
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/solr/

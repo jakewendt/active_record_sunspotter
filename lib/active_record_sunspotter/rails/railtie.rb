@@ -3,6 +3,7 @@ module ActiveRecordSunspotter
 		initializer 'add_helpers_to_actionview' do |app|
 			ActiveSupport.on_load :action_view do
 				ActionView::Base.send(:include, ActiveRecordSunspotter::SunspotHelper)
+				ActionController::Base.helper :sunspot
 			end
 		end
 #		rake_tasks do

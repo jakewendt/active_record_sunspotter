@@ -6,6 +6,9 @@
 
 
 
+ sudo /opt/local/share/mariadb/support-files/mysql.server start
+
+ c ; bundle exec rake sunspot:solr:stop ; bundle exec rake sunspot:solr:stop RAILS_ENV=test ; bundle exec rake sunspot:solr:start ; bundle exec rake sunspot:solr:start RAILS_ENV=test ; bundle exec rake test
 
 
 
