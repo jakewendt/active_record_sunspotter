@@ -6,6 +6,30 @@
 
 
 
+
+== Modifications
+
+I'm stuck using version 2.0.0.  Seems to be issues with java.  Anywho.
+
+Need to edit ...
+
+/opt/local/lib/ruby2.0/gems/2.0.0/gems/sunspot_rails-2.0.0/lib/sunspot_rails.rb
+
+... to require 'json' rather than 'to_json' for rails 4.1.0 and above like so.
+
+
+if ::Rails.version >= '4.1'
+	require 'active_support/core_ext/object/json' 
+elsif ::Rails.version >= '3'
+	require 'active_support/core_ext/object/to_json' 
+end
+
+
+
+== Testing
+
+
+
  sudo /opt/local/share/mariadb/support-files/mysql.server start
 
  c ; bundle exec rake sunspot:solr:stop ; bundle exec rake sunspot:solr:stop RAILS_ENV=test ; bundle exec rake sunspot:solr:start ; bundle exec rake sunspot:solr:start RAILS_ENV=test ; bundle exec rake test
