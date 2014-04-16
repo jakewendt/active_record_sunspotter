@@ -24,6 +24,10 @@ begin
 		gem.files += FileList['vendor/**/*.css']
 		gem.files += FileList['vendor/**/*.css.scss']
 		gem.files -= FileList['**/versions/*']
+
+		#	rails 4 uses /bin/ instead of /script/
+		#	jeweler defaults to use the contents of /bin/ as executables.
+		gem.executables = []
 	end
 	Jeweler::GemcutterTasks.new
 rescue LoadError
