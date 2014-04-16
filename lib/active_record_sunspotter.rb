@@ -15,6 +15,19 @@ require 'active_record_sunspotter/sunspot_helper'
 #	copied in this 1 file
 require 'active_record_sunspotter/sunspot_rails_2.1.0_sunspot_rails_adapters'
 
+#	for some reason, the :include key will inspire ...
+#	ArgumentError: Unknown key: :include. Valid keys are: :start, :batch_size
+#	Tasks: TOP => sunspot:solr:reindex => sunspot:reindex
+#	Seems to have been this way for some time, but now it errors.
+#	Using 2.1.0's version makes everyone happy?
+require 'active_record_sunspotter/sunspot_rails_2.1.0_sunspot_rails_searchable'
+#	Somehow this requires the presence of a new file solr/solr.xml
+
+
+#	Really would just prefer to install 2.1.0, but it just won't work for me.
+#	Still wasting my time investigating though.
+#	Seems to be a java problem.  Surprised?
+
 
 if defined?(Rails)
 	require 'active_record_sunspotter/rails/engine'
