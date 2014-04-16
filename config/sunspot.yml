@@ -15,3 +15,29 @@ test:
     hostname: localhost
     port: 8989
     log_level: WARNING
+
+
+production:
+  solr:
+    hostname: localhost
+    port: 8987
+    log_level: WARNING
+#    solr_home: solr
+    path: /solr/production
+
+development:
+  solr:
+    hostname: localhost
+    port: 8988
+    log_level: INFO
+#    solr_home: solr
+    path: /solr/development
+
+test:
+  solr:
+    hostname: localhost
+    port: 8989
+    log_level: WARNING
+    path: /solr/test
+#    solr_home: solr
+
