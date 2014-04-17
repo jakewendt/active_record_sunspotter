@@ -3,25 +3,6 @@ production:
     hostname: localhost
     port: 8987
     log_level: WARNING
-
-development:
-  solr:
-    hostname: localhost
-    port: 8988
-    log_level: INFO
-
-test:
-  solr:
-    hostname: localhost
-    port: 8989
-    log_level: WARNING
-
-
-production:
-  solr:
-    hostname: localhost
-    port: 8987
-    log_level: WARNING
 #    solr_home: solr
     path: /solr/production
 
