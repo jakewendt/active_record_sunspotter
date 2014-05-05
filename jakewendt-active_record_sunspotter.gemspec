@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "jakewendt-active_record_sunspotter"
-  s.version = "4.1.0"
+  s.version = "4.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["George 'Jake' Wendt"]
-  s.date = "2014-04-16"
+  s.date = "2014-05-05"
   s.description = "active_record_sunspotter"
   s.email = "github@jakewendt.com"
   s.extra_rdoc_files = [
@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
     "lib/active_record_sunspotter/sunspot_rails_server.rb",
     "lib/active_record_sunspotter/sunspotability.rb",
     "lib/jakewendt-active_record_sunspotter.rb",
-    "lib/tasks/application.rake",
     "vendor/assets/javascripts/sunspot.js",
     "vendor/assets/stylesheets/sunspot.css.scss",
     "vendor/views/layouts/_footer.html.erb",
@@ -53,8 +52,8 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<sunspot_rails>, ["= 2.0.0"])
-      s.add_runtime_dependency(%q<sunspot_solr>, ["= 2.0.0"])
+      s.add_runtime_dependency(%q<sunspot_rails>, [">= 0"])
+      s.add_runtime_dependency(%q<sunspot_solr>, [">= 0"])
       s.add_runtime_dependency(%q<progress_bar>, [">= 0"])
       s.add_runtime_dependency(%q<will_paginate>, [">= 0"])
       s.add_development_dependency(%q<rails>, ["~> 4.0"])
@@ -67,8 +66,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<acts_as_list>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
-      s.add_dependency(%q<sunspot_rails>, ["= 2.0.0"])
-      s.add_dependency(%q<sunspot_solr>, ["= 2.0.0"])
+      s.add_dependency(%q<sunspot_rails>, [">= 0"])
+      s.add_dependency(%q<sunspot_solr>, [">= 0"])
       s.add_dependency(%q<progress_bar>, [">= 0"])
       s.add_dependency(%q<will_paginate>, [">= 0"])
       s.add_dependency(%q<rails>, ["~> 4.0"])
@@ -82,8 +81,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
-    s.add_dependency(%q<sunspot_rails>, ["= 2.0.0"])
-    s.add_dependency(%q<sunspot_solr>, ["= 2.0.0"])
+    s.add_dependency(%q<sunspot_rails>, [">= 0"])
+    s.add_dependency(%q<sunspot_solr>, [">= 0"])
     s.add_dependency(%q<progress_bar>, [">= 0"])
     s.add_dependency(%q<will_paginate>, [">= 0"])
     s.add_dependency(%q<rails>, ["~> 4.0"])
