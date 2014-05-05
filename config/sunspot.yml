@@ -1,18 +1,24 @@
-production:
-  solr:
-    hostname: localhost
-    port: 8987
-    log_level: WARNING
-#    solr_home: solr
-    path: /solr/production
 
 development:
   solr:
     hostname: localhost
     port: 8988
     log_level: INFO
-#    solr_home: solr
+    solr_home: /Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr
     path: /solr/development
+
+#    solr_home: solr
+#    path: /Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr/data/development
+
+#
+#	'solr_home' MUST be absolute or will get a bunch of ...
+#	Caused by: java.io.IOException: Cannot create directory: /opt/local/lib/ruby2.0/gems/2.0.0/gems/sunspot_solr-2.1.0/solr/solr/./development/data/index
+#
+#
+#	Don't understand the purpose of 'path' yet. But need it and don't change it.
+#	The code is suggestive that it is not necessary, but in actuality seems to be.
+#	Too many 'solr' directories, I can't keep 'em straight.
+#
 
 test:
   solr:
@@ -20,5 +26,8 @@ test:
     port: 8989
     log_level: WARNING
     path: /solr/test
+    solr_home: /Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr
+
 #    solr_home: solr
+#    path: /Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr/data/test
 

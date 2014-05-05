@@ -14,7 +14,7 @@ source 'https://rubygems.org'
 #	I don't even know what file it is refering to
 #	Fortunately, this seems to only be a testing error as our production site
 #	is using 1.7 apparently without issue.
-# And dev with 1.7 ok too, I think.  Just "test"
+# And dev with 1.7 ok too, I think.  Just "test".  Nope, "dev" started mucking up.
 #
 #	Manipulated current version with links in ....
 #	/System/Library/Frameworks/JavaVM.framework/Versions
@@ -43,8 +43,8 @@ source 'https://rubygems.org'
 #
 #	and doesn't start.
 #
-gem 'sunspot_rails', '= 2.0.0'
-gem 'sunspot_solr', '= 2.0.0' # optional pre-packaged Solr distribution for use in development
+gem 'sunspot_rails'	#	, '= 2.0.0'
+gem 'sunspot_solr'	#	, '= 2.0.0' # optional pre-packaged Solr distribution for use in development
 gem 'progress_bar'
 gem 'will_paginate'
 

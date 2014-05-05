@@ -4,6 +4,82 @@
 
 
 
+== Upgrade notes
+
+Upgrading the sunspot family of gems from 2.0.0 to 2.1.0 has been a bit of a nightmare.
+
+However
+
+Both solr/conf/schema.xml and solr/conf/solrconfig.xml differ between the 2 versions, so update your app's.
+
+Once updated, the mods in active_record_sunspotter.rb can be removed.
+Also, remove the added require line in the Rakefile for sunspot rake tasks.
+
+Create a solr/solr.xml to look like so ...
+
+ <?xml version="1.0" encoding="UTF-8" ?>
+ <solr persistent="false">
+  <cores adminPath="/admin/cores" host="${host:}" hostPort="${jetty.port:}">
+    <core name="production"  instanceDir="." dataDir="data/production"/>
+    <core name="development" instanceDir="." dataDir="data/development"/>
+    <core name="test"        instanceDir="." dataDir="data/test"/>
+  </cores>
+ </solr>
+
+... or use the new one, but reorganize the solr directory.
+
+
+
+
+config/sunspot.yml needs an absolute solr_home for each environment, and a path too
+
+    solr_home: /Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr
+    path: /solr/production
+
+
+Apparently, solr.xml's dataDir and sunspot.yml's path must match.  Or not?
+
+
+
+Rather confused on this issue. The command (ps | grep solr) shows a solr.data.dir of /solr/data/development 
+even though 
+
+ solr.xml ...
+    <core name="development" instanceDir="." dataDir="development/data"/>
+
+ sunspot.yml
+    path: /solr/development
+
+Seems to use both data/development and development/data for some reason?
+
+
+
+
+
+
+
+
+REALLY NEED TO MAKE THIS UPGRADABLE!  Not Upgrade-and-start-overable!
+
+
+
+
+
+
+
+
+sudo mkdir /opt/local/lib/ruby2.0/gems/2.0.0/gems/sunspot_solr-2.1.0/solr/solr-webapp
+sudo chmod 777 /opt/local/lib/ruby2.0/gems/2.0.0/gems/sunspot_solr-2.1.0/solr/solr-webapp
+
+2014-05-02 14:26:28.072:INFO:oejd.DeploymentManager:Deployable added: /opt/local/lib/ruby2.0/gems/2.0.0/gems/sunspot_solr-2.1.0/solr/contexts/solr.xml
+2014-05-02 14:26:28.116:WARN:oejx.XmlConfiguration:Config error at <Set name="tempDirectory"><Property name="jetty.home" default="."/>/solr-webapp</Set> java.lang.reflect.InvocationTargetException
+
+Caused by: 
+java.lang.IllegalArgumentException: Bad temp directory: /opt/local/lib/ruby2.0/gems/2.0.0/gems/sunspot_solr-2.1.0/solr/solr-webapp
+
+
+I suppose it could be another folder, but you'd need to modify the gem's solr/contexts/solr.xml file.
+
 
 
 
@@ -67,6 +143,9 @@ ArgumentError: Unknown key: :include. Valid keys are: :start, :batch_size
  c ; bundle exec rake sunspot:solr:stop ; bundle exec rake sunspot:solr:stop RAILS_ENV=test ; bundle exec rake sunspot:solr:start ; bundle exec rake sunspot:solr:start RAILS_ENV=test ; bundle exec rake test
 
 
+ bundle exec rake sunspot:solr:stop ; bundle exec rake sunspot:solr:start
+
+ bundle exec rake sunspot:solr:stop RAILS_ENV=test ; bundle exec rake sunspot:solr:start RAILS_ENV=test ; bundle exec rake test  ; bundle exec rake sunspot:solr:stop RAILS_ENV=test
 
 == Gemified with Jeweler
 

@@ -1,5 +1,8 @@
 jQuery(function(){
 
+//
+// perhaps make this 'div.facet_toggle *' so as to include the span triangle icon?
+//
 	jQuery('div.facet_toggle a').click(function(){
 //		jQuery(this).parent().next().toggle(500);
 //  added 'blind' so doesn't resize stuff and just slides in.
@@ -14,6 +17,9 @@ jQuery(function(){
 		connectWith: ".selectable_columns"
 	}).disableSelection();
 
+//
+// should this really be '<input>' and not just 'input'?
+//
 	jQuery('form').submit(function(){
 		jQuery('#selected_columns li').each(function(){
 			jQuery('<input>').attr({ 

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <solr persistent="false">
   <cores adminPath="/admin/cores" host="${host:}" hostPort="${jetty.port:}">
-    <core name="default"     instanceDir="." dataDir="default/data"/>
-    <core name="development" instanceDir="." dataDir="development/data"/>
-    <core name="test"        instanceDir="." dataDir="test/data"/>
+    <core name="default"     instanceDir="." dataDir="data/default"/>
+    <core name="production"  instanceDir="." dataDir="data/production"/>
+    <core name="development" instanceDir="." dataDir="data/development"/>
+    <core name="test"        instanceDir="." dataDir="data/test"/>
   </cores>
 </solr>
