@@ -82,6 +82,10 @@ I suppose it could be another folder, but you'd need to modify the gem's solr/co
 
 
 
+In 2.1.1, the tempDirectory is removed so this last mod is unnecessary.
+
+
+
 
 == Modifications
 
