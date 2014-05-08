@@ -30,12 +30,12 @@ jQuery(function(){
 		});
 	});
 
-	jQuery('#select_all').click(function(){
+	jQuery('#select_all_columns').click(function(){
 		jQuery('#unselected_columns li').appendTo('#selected_columns')
 		return false;
 	});
 
-	jQuery('#unselect_all').click(function(){
+	jQuery('#unselect_all_columns').click(function(){
 		jQuery('#selected_columns li').appendTo('#unselected_columns')
 		return false;
 	});
