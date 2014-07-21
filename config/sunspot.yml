@@ -4,8 +4,9 @@ development:
     hostname: localhost
     port: 8988
     log_level: INFO
-    solr_home: /Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr
+    solr_home: <%= "#{Rails.root}/solr" %>
     path: /solr/development
+#/Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr
 
 #    solr_home: solr
 #    path: /Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr/data/development
@@ -26,7 +27,8 @@ test:
     port: 8989
     log_level: WARNING
     path: /solr/test
-    solr_home: /Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr
+    solr_home: <%= "#{Rails.root}/solr" %>
+#    solr_home: /Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr
 
 #    solr_home: solr
 #    path: /Users/jakewendt/github_repo/jakewendt/active_record_sunspotter/solr/data/test
