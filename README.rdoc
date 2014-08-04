@@ -89,52 +89,6 @@ In 2.1.1, the tempDirectory is removed so this last mod is unnecessary.
 
 == Modifications
 
-I'm stuck using version 2.0.0.  Seems to be issues with java.  Anywho.
-This file loads too early for me to override, so...
-
-Need to edit ...
-
-/opt/local/lib/ruby2.0/gems/2.0.0/gems/sunspot_rails-2.0.0/lib/sunspot_rails.rb
-
-... to require 'json' rather than 'to_json' for rails 4.1.0 and above like so.
-
-
-if ::Rails.version >= '4.1'
-	require 'active_support/core_ext/object/json' 
-elsif ::Rails.version >= '3'
-	require 'active_support/core_ext/object/to_json' 
-end
-
-
-
-
-
-The 2.1.0 version of this file is now included in this gem.
-
-And another mod... (I may be able to patch this one.)
-
-sunspot_rails-2.0.0/lib/sunspot/rails/searchable.rb
-
-Must comment out the :include option.  
-
-251           find_in_batch_options = {
-252 #            :include => options[:include],
-253             :batch_size => options[:batch_size],
-254             :start => options[:start]
-255           }
-
-
-Don't know why now as it has been there for a while, but even looking back to 4.0.3
-it hasn't been a valid key?
-
-ArgumentError: Unknown key: :include. Valid keys are: :start, :batch_size
-/my/ruby/gems/2.0/gems/activesupport-4.1.0/lib/active_support/core_ext/hash/keys.rb:71:in `block in assert_valid_keys'
-/my/ruby/gems/2.0/gems/activesupport-4.1.0/lib/active_support/core_ext/hash/keys.rb:69:in `each_key'
-/my/ruby/gems/2.0/gems/activesupport-4.1.0/lib/active_support/core_ext/hash/keys.rb:69:in `assert_valid_keys'
-/my/ruby/gems/2.0/gems/activerecord-4.1.0/lib/active_record/relation/batches.rb:100:in `find_in_batches'
-/my/ruby/gems/2.0/gems/activerecord-4.1.0/lib/active_record/querying.rb:9:in `find_in_batches'
-/my/ruby/gems/2.0/gems/sunspot_rails-2.0.0/lib/sunspot/rails/searchable.rb:259:in `solr_index'
-
 
 
 
