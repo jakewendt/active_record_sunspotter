@@ -109,6 +109,21 @@ module ActiveRecordSunspotter::Sunspotability
 	
 	#			yield if block_given?
 	#			yield block if block_given?
+
+
+
+
+
+				#
+				#	20140815 - Something like this is probably what is needed
+				#		could then possibly just override the searchable method.
+				#
+				#	instance_exec(&block)
+				#
+
+
+
+
 			end	
 	
 	#	this works, but why can't I just yield inside the block
