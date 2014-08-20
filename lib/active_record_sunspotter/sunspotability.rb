@@ -81,7 +81,8 @@ module ActiveRecordSunspotter::Sunspotability
 #	I found documentation that says that Lucene/Solr should work for longs and doubles?
 #
 #
-#	these are missing in sunspot 2.0.  I added them in my taxonomy app
+#	these are missing in sunspot 2.0.  I added them in my taxonomy app.
+#	Still not in 2.1.1 sunspot-2.1.1/lib/sunspot/type.rb
 #
 #	module Sunspot::Type
 #		class TrieDoubleType < DoubleType
@@ -97,13 +98,17 @@ module ActiveRecordSunspotter::Sunspotability
 #	end
 #
 #					options[:trie] = true if( [:integer,:long,:double,:float,:time].include?(c.type) )
+
+
+
 					options[:trie] = true if( [:integer,:float,:time].include?(c.type) )
 					send( c.type, c.name, options ){
 						c.hash_table.has_key?(:meth) ? c.meth.call(self) : send( c.name )
 					}
-	#
-	#	booleans? nulled_strings?
-	#
+					#
+					#		booleans? nulled_strings? Do I now longer allow these?  NO
+					#		What was a "nulled_string"? ( think I 'fixed' this with the :meth option )
+					#
 				}
 	
 	
