@@ -89,8 +89,7 @@ module ActiveRecordSunspotter::SunspotHelper
 			next if row.value.blank?
 
 			label = if col.ranges
-				col.ranges.detect{|r|
-					r[:range].to_s == row.value.to_s }[:name] || 'RANGE NOT FOUND'
+				col.ranges.detect{|r| r[:range].to_s == row.value.to_s }[:name] || 'RANGE NOT FOUND'
 			else
 				row.value
 			end

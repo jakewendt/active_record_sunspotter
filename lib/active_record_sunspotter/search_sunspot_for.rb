@@ -77,6 +77,9 @@ module ActiveRecordSunspotter::SearchSunspotFor
 
 						end	#	if params[p]
 
+#if f.type == :dynamic
+#	dynamic f.namespace { facet f.
+#else
 						#	facet.sort
 						#	This param determines the ordering of the facet field constraints.
 						#	    count - sort the constraints by count (highest count first)
@@ -90,6 +93,7 @@ module ActiveRecordSunspotter::SearchSunspotFor
 						#	put this inside the else condition as the if block is
 						#	for ranges and it calls facet
 						facet p.to_sym, :sort => :index if f.facetable
+#end
 
 					end
 

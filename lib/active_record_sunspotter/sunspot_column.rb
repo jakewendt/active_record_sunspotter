@@ -16,13 +16,7 @@ class ActiveRecordSunspotter::SunspotColumn < OpenStruct
 			options[:name] = args.first.to_s
 		end
 
-#		if( options[:type] == :null_yndk_string ) && options[:meth].blank?
-#			options[:meth] = ->(s){ YNDK[s.send(:name)]||'NULL' }
-#			options[:type] = :string
-#		end
-
 		default_options.update(options)
-#		default_options[:orderable] = false if options[:type] == :multistring
 		default_options[:orderable] = false if options[:multiple]
 		default_options[:filterable] = true if options[:facetable]
 		super default_options
