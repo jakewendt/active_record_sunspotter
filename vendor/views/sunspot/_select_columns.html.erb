@@ -1,8 +1,13 @@
+<hr/>
 <div class="facet_toggle">
-<span class="ui-icon ui-icon-triangle-1-e">&nbsp;</span><a href="javascript:void(0)">Column Selection</a>
-</div>
-<div id='columns' class='facet_field'>
-	<p>Used Columns</p>
+<span class="ui-icon ui-icon-triangle-1-e">&nbsp;</span
+	><a href="javascript:void(0)">Column Selection</a>
+</div><!-- div class="facet_toggle" -->
+
+<!--<div id='columns' class='facet_field'> Is the id needed here? Doesn't appear so. -->
+<div class='facet_field'>
+	<p>Selected Columns</p>
+<!-- Is id needed for select all AND MORE IMPORTANTLY THE CONVERSION TO PARAMS QUERY -->
 	<ul id="selected_columns" class="selectable_columns">
 		<% columns.each do |column| %>
 			<%# NEED to find a way to use the id, but already using id matching these 
@@ -10,15 +15,44 @@
 			<%= content_tag(:li, column )%>
 		<% end %>
 	</ul>
-	<p>Unused Columns</p>
-	<ul id="unselected_columns" class="selectable_columns">
-		<% (@sunspot_search_class.sunspot_available_column_names - columns).each do |column| %>
-			<%# NEED to find a way to use the id, but already using id matching these 
-					column names in the facet selectors %>
-			<%= content_tag(:li, column )%>
+
+	<% if @sunspot_search_class.sunspot_column_groups.length > 1 %>
+		<p>Available Columns (now grouped)</p>
+	<% else %>
+		<p>Available Columns</p>
+	<% end %>
+	<!--<ul id="unselected_columns" class="selectable_columns"> id needed for select all-->
+
+	<% @sunspot_search_class.sunspot_column_groups.each do |group| %>
+
+		<% if @sunspot_search_class.sunspot_column_groups.length > 1 %>
+			<div class="facet_toggle">
+			<span class="ui-icon ui-icon-triangle-1-e">&nbsp;</span
+				><a href="javascript:void(0)"><%= group %></a>
+			</div><!-- div class="facet_toggle" -->
+			<div class='facet_field'>
 		<% end %>
-	</ul>
+
+			<ul class="selectable_columns">
+				<% @sunspot_search_class.sunspot_column_names_in_group(group).each do |column| %>
+					<% unless columns.include?( column ) %>
+						<%# NEED to find a way to use the id, but already using id matching these 
+								column names in the facet selectors %>
+						<%# 20141114 - WHY? I write comments like these without reasons? %>
+						<%= content_tag(:li, column )%>
+					<% end %><%# unless columns.include?( column ) %>
+				<% end %>
+			</ul>
+
+		<% if @sunspot_search_class.sunspot_column_groups.length > 1 %>
+			</div><!-- div class='facet_field' -->
+		<% end %>
+
+	<% end %><%# @sunspot_search_class.sunspot_column_groups.each do |group| %>
+
+<!--
 	<p><a id='select_all_columns' href="javascript:void(0)">Select All</a>&nbsp;
      <a id='unselect_all_columns' href="javascript:void(0)">Unselect All</a></p>
 	<p>too many columns can result in a uri which is too large.</p>
+-->
 </div>

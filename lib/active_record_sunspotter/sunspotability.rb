@@ -6,19 +6,23 @@ module ActiveRecordSunspotter::Sunspotability
 			#
 			#	MUST delay execution of code until included as cattr_accessor is ActiveRecord specific
 			#
-			cattr_accessor :all_sunspot_columns
-			self.all_sunspot_columns = []		#	order is only relevant to the facets
+			cattr_accessor :sunspot_columns
+			cattr_accessor :sunspot_column_groups
+			self.sunspot_columns = []		#	order is only relevant to the facets
+			self.sunspot_column_groups = []
 		end
 	end
 
 	module ClassMethods
 
 		def add_sunspot_column(*args)
-			all_sunspot_columns.push( ActiveRecordSunspotter::SunspotColumn.new( *args ) )
+			new_column = ActiveRecordSunspotter::SunspotColumn.new( *args )
+			sunspot_columns.push( new_column )
+			sunspot_column_groups.push( new_column.group ) unless sunspot_column_groups.include?( new_column.group )
 		end
 	
 		def sunspot_orderable_columns
-			all_sunspot_columns.select{|c|c.orderable}
+			sunspot_columns.select{|c|c.orderable}
 		end
 	
 		def sunspot_orderable_column_names
@@ -26,7 +30,7 @@ module ActiveRecordSunspotter::Sunspotability
 		end
 	
 		def sunspot_default_columns
-			all_sunspot_columns.select{|c|c.default}
+			sunspot_columns.select{|c|c.default}
 		end
 	
 		def sunspot_default_column_names
@@ -34,23 +38,26 @@ module ActiveRecordSunspotter::Sunspotability
 		end
 	
 		def sunspot_all_filters
-			all_sunspot_columns.select{|c|c.filterable}
+			sunspot_columns.select{|c|c.filterable}
 		end
 
 		#	in the order that they will appear on the page
 		def sunspot_all_facets
-			all_sunspot_columns.select{|c|c.facetable}
+			sunspot_columns.select{|c|c.facetable}
 		end
 		def sunspot_all_facet_names
 			sunspot_all_facets.collect(&:name)
 		end
 	
-		def sunspot_columns
-			all_sunspot_columns
+		def all_sunspot_columns
+			sunspot_columns
 		end
+#		def sunspot_columns
+#			all_sunspot_columns
+#		end
 	
 		def sunspot_column_names
-			all_sunspot_columns.collect(&:name)
+			sunspot_columns.collect(&:name)
 		end
 	
 		def sunspot_available_column_names
@@ -58,13 +65,20 @@ module ActiveRecordSunspotter::Sunspotability
 		end
 	
 		def sunspot_date_columns
-			all_sunspot_columns.select{|c|c.type == :date }
+			sunspot_columns.select{|c|c.type == :date }
+		end
+
+		def sunspot_columns_in_group(group)
+			sunspot_columns.select{|c|c.group == group }
+		end
+		def sunspot_column_names_in_group(group)
+			sunspot_columns.select{|c|c.group == group }.collect(&:name).sort
 		end
 	
 		def searchable_plus(&block)
 			searchable do
 
-				all_sunspot_columns.select{|c| ![:boolean].include?(c.type) }.each{|c|
+				sunspot_columns.select{|c| ![:boolean].include?(c.type) }.each{|c|
 					options = {}
 					options[:multiple] = true if( c.multiple )
 					options[:trie] = true if( [:integer,:float,:time].include?(c.type) )

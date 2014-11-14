@@ -4,6 +4,7 @@ class ActiveRecordSunspotter::SunspotColumn < OpenStruct
 	def initialize(*args)
 		#	some sensible defaults
 		default_options = {
+			:group     => 'Main',
 			:type      => :string, 
 			:orderable => true, 
 			:facetable => false, 

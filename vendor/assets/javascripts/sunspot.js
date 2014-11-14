@@ -10,10 +10,12 @@ jQuery(function(){
 		jQuery(this).parent().next().toggle('blind',500);
 		jQuery(this).prev().toggleClass('ui-icon-triangle-1-e');
 		jQuery(this).prev().toggleClass('ui-icon-triangle-1-s');
+//	jQuery(this).parent().toggleClass('open');
 		return false;
 	});
 
-	jQuery( "#selected_columns, #unselected_columns" ).sortable({
+//	jQuery( "#selected_columns, #unselected_columns" ).sortable({
+	jQuery( ".selectable_columns" ).sortable({
 		connectWith: ".selectable_columns"
 	}).disableSelection();
 

@@ -123,6 +123,7 @@ tr:nth-child(2n+1) { background-color: #F5F1E8; }
 		display:block;
 		padding: 5px;
 		border-top: 1px solid silver;
+		border-left: 1px solid silver;
 		background-color:#EEE;
 		text-align: left;
 		* {
@@ -139,6 +140,7 @@ tr:nth-child(2n+1) { background-color: #F5F1E8; }
 	}
 	div.facet_field {
 		display:none;
+		margin-left: 5px;
 		ul {
 			padding-left: 35px;
 		/* I want a 10px padding, but also want the wordwrap indented 
