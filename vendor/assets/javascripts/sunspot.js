@@ -19,10 +19,16 @@ jQuery(function(){
 		connectWith: ".selectable_columns"
 	}).disableSelection();
 
-//
-// should this really be '<input>' and not just 'input'?
-//
+	//
+	//	Should this really be '<input>' and not just 'input'?
+	//	Yes, it is creating an input tag, not finding one.
+	//
 	jQuery('form').submit(function(){
+
+		//	20141203 - added to try to keep the url smaller
+		//	disabled checkboxes do not get submitted.
+		jQuery('input:checkbox:not(:checked)').attr('disabled',true);
+
 		jQuery('#selected_columns li').each(function(){
 			jQuery('<input>').attr({ 
 				name: 'c[]', 
