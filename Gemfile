@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'sunspot_rails'	#	, '= 2.0.0'
-gem 'sunspot_solr'	#	, '= 2.0.0' # optional pre-packaged Solr distribution for use in development
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 gem 'progress_bar'
 gem 'will_paginate'
 
@@ -14,22 +14,22 @@ gem 'will_paginate'
 
 group :development, :test do
 	# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-	gem 'rails', '~> 4.0'
+	gem 'rails'	#, '~> 4.0'
 
 	# Use sqlite3 as the database for Active Record
 	gem 'sqlite3'
 
 	# Use SCSS for stylesheets
-	gem 'sass-rails', '~> 4.0.2'
+	gem 'sass-rails'	#, '~> 4.0.2'
 
 	# Use Uglifier as compressor for JavaScript assets
-	gem 'uglifier', '>= 1.3.0'
+	gem 'uglifier'	#, '>= 1.3.0'
 
 	# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-	gem 'turbolinks'
+#	gem 'turbolinks'
 
 	# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-	gem 'jbuilder', '~> 1.2'
+#	gem 'jbuilder', '~> 1.2'
 
 	#       ruby 1.9.3 requirement to parse american date
 	#       format Month/Day/Year Date.parse('12/31/2000')
@@ -51,7 +51,7 @@ group :test do
 
 	gem "factory_girl_rails"
 
-	gem "mocha", :require => false
+	gem "mocha", :require => 'mocha/setup'
 
 	gem "autotest-rails", :require => 'autotest/rails'
 

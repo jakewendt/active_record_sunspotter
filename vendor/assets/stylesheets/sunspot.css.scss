@@ -134,7 +134,11 @@ tr:nth-child(2n+1) { background-color: #F5F1E8; }
 			padding-right:5px;
 		}
 		a {
-			display:inline-block;
+/*			display:inline-block; 
+	inline-block makes long lines that wrap around start on a new line.
+	inline keeps them on the same line as the arrow
+*/
+			display:inline;
 			text-align: left;
 		}
 	}
