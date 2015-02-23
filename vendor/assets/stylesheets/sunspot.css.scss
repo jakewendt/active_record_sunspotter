@@ -112,49 +112,38 @@ tr:nth-child(2n+1) { background-color: #F5F1E8; }
 		/* for ie , but doesn't seem to work as expected despite other examples working */
 		filter: progid:DXImageTransform.Microsoft.gradient(StartColorStr='#FFFFFF', EndColorStr='#BBBBBB');
 	}
-}
 
-
-
-.facets {
-	border: 1px solid silver;
-	border-top: 0;
-	div.facet_toggle {
-		display:block;
-		padding: 5px;
-		border-top: 1px solid silver;
-		border-left: 1px solid silver;
-		background-color:#EEE;
-		text-align: left;
-		* {
-			vertical-align:middle;
-		}
-		span {
-			display: inline-block;
-			padding-right:5px;
-		}
-		a {
-/*			display:inline-block; 
-	inline-block makes long lines that wrap around start on a new line.
-	inline keeps them on the same line as the arrow
-*/
-			display:inline;
+	.facets {
+		border: 1px solid silver;
+		border-top: 0;
+		div.facet_toggle {
+			display:block;
+			padding: 5px 0px;
+			border-top: 1px solid silver;
+			border-left: 1px solid silver;
+			background-color:#EEE;
 			text-align: left;
-		}
-	}
-	div.facet_field {
-		display:none;
-		margin-left: 5px;
-		ul {
-			padding-left: 35px;
-		/* I want a 10px padding, but also want the wordwrap indented 
-			further. so large padding and negative indent */
-			li {
-				list-style: none;
+			* { vertical-align:middle; }
+			span { display: inline-block; }
+			a {
+				display:inline;
 				text-align: left;
-				text-indent: -30px;
-				label {
-					padding-left: 5px;
+			}
+		}
+		div.facet_field {
+			display:none;
+			margin-left: 5px;
+			ul {
+				padding-left: 35px;
+				/* I want a 10px padding, but also want the wordwrap indented 
+					further. so large padding and negative indent */
+				li {
+					list-style: none;
+					text-align: left;
+					text-indent: -30px;
+					label {
+						padding-left: 5px;
+					}
 				}
 			}
 		}
@@ -175,8 +164,6 @@ tr:nth-child(2n+1) { background-color: #F5F1E8; }
 	}
 }
 
-
-
 ul.selectable_columns {
 	background-color: silver;
 	padding: 10px;
@@ -184,8 +171,6 @@ ul.selectable_columns {
 	text-align: left;
 	text-indent: 20px;
 }
-
-
 
 
 /* only used in ODMS so should probably move it there */
